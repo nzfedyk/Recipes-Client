@@ -1,0 +1,387 @@
+﻿<UserControl x:Class="Recipes.Presentation.Views.CatalogUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="900" Loaded="UserControl_Loaded_1">
+    <UserControl.Background>
+        <ImageBrush ImageSource="../Resources/background.jpg" Opacity="0.4"></ImageBrush>
+    </UserControl.Background>
+    <DockPanel LastChildFill="True">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Column="0"
+                    Margin="5">
+                <Label Content="Категорії:" FontWeight="Bold"/>
+                <ComboBox Name="cmbMainCategory" MinWidth="100" ItemsSource="{Binding}" 
+                          SelectionChanged="cmbMainCategory_SelectionChanged_1">
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="1"
+                    Margin="5">
+                <Label Content="Підкатегорії:" FontWeight="Bold"/>
+                <ComboBox Name="cmbCategory" MinWidth="100" ItemsSource="{Binding}" IsEnabled="False" SelectionChanged="cmbCategory_SelectionChanged_1"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical"
+                   Grid.Column="2" Margin="5">
+                <Label Content="Пошук:" FontWeight="Bold"/>
+                <TextBox Name="tbxSearch" MinWidth="100" TextChanged="tbxSearch_TextChanged_1"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Width="885">
+            <Button x:Name="AddRecipe" Margin="5" Click="AddRecipe_Click_1" Width="430" 
+                    Background="LightGreen">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="../Resources/AddIcon.png" Stretch="None"></Image>
+                        <TextBlock VerticalAlignment="Center" Margin="7,0,0,0" FontFamily="Verdana">Додати рецепт</TextBlock>
+                    </DockPanel>
+                </Button.Content>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="SnapsToDevicePixels" Value="true"/>
+                        <Setter Property="OverridesDefaultStyle" Value="true"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Name="Border" CornerRadius="2" BorderThickness="1"
+                    Background="LightGreen"
+                    BorderBrush="#404040">
+                                        <ContentPresenter Margin="2" 
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center" 
+                                 RecognizesAccessKey="True"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsKeyboardFocused" Value="true">
+                                            <Setter TargetName="Border" 
+                          Property="BorderBrush" Value="#202020" />
+                                        </Trigger>
+                                        <Trigger Property="IsDefaulted" Value="true">
+                                            <Setter TargetName="Border" 
+                          Property="BorderBrush" Value="#202020" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="false">
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="true">
+                                            <Setter TargetName="Border" 
+                          Property="Background" Value="#E0E0E0" />
+                                            <Setter TargetName="Border" 
+                          Property="BorderBrush" Value="#606060" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter TargetName="Border" 
+                          Property="Background" Value="#EEEEEE" />
+                                            <Setter TargetName="Border" 
+                          Property="BorderBrush" Value="#AAAAAA" />
+                                            <Setter Property="Foreground" Value="#888888"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="DeleteRecipe" Margin="5" Click="DeleteRecipe_Click_1" Width="430" 
+                    Background="LightPink">
+                <Button.Content>
+                    <DockPanel>
+                        <Image Source="../Resources/RemoveIcon.png" Stretch="None"></Image>
+                        <TextBlock VerticalAlignment="Center" Margin="7,0,0,0" FontFamily="Verdana">Видалити рецепти</TextBlock>
+                    </DockPanel>
+                </Button.Content>
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="SnapsToDevicePixels" Value="true"/>
+                        <Setter Property="OverridesDefaultStyle" Value="true"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Name="Border" CornerRadius="2" BorderThickness="1"
+                    Background="LightPink"
+                    BorderBrush="#404040">
+                                        <ContentPresenter Margin="2" 
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center" 
+                                 RecognizesAccessKey="True"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsKeyboardFocused" Value="true">
+                                            <Setter TargetName="Border" 
+                          Property="BorderBrush" Value="#202020" />
+                                        </Trigger>
+                                        <Trigger Property="IsDefaulted" Value="true">
+                                            <Setter TargetName="Border" 
+                          Property="BorderBrush" Value="#202020" />
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="false">
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="true">
+                                            <Setter TargetName="Border" 
+                          Property="Background" Value="#E0E0E0" />
+                                            <Setter TargetName="Border" 
+                          Property="BorderBrush" Value="#606060" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter TargetName="Border" 
+                          Property="Background" Value="#EEEEEE" />
+                                            <Setter TargetName="Border" 
+                          Property="BorderBrush" Value="#AAAAAA" />
+                                            <Setter Property="Foreground" Value="#888888"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        <DataGrid Name="dgCatalogUC" AutoGenerateColumns="False" IsReadOnly="True"
+              CanUserAddRows="False" CanUserDeleteRows="False" HorizontalContentAlignment="Center"
+              ItemsSource="{Binding}" Margin="5">
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="Background" Value="LightYellow" />
+                    <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridRow}">
+                                <Border x:Name="DGR_Border"
+			                            BorderBrush="{TemplateBinding BorderBrush}"
+			                            BorderThickness="{TemplateBinding BorderThickness}"
+		                                SnapsToDevicePixels="True">
+                                    <Border.Background>
+                                        <RadialGradientBrush>
+                                            <GradientStop Offset="0" Color="#AAFFFFAA" />
+                                            <GradientStop Offset="1" Color="#AAFFD455" />
+                                        </RadialGradientBrush>
+                                    </Border.Background>
+                                    <SelectiveScrollingGrid>
+                                        <SelectiveScrollingGrid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </SelectiveScrollingGrid.ColumnDefinitions>
+                                        <SelectiveScrollingGrid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </SelectiveScrollingGrid.RowDefinitions>
+                                        <DataGridCellsPresenter Grid.Column="1"
+			                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+			                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        <DataGridDetailsPresenter Grid.Row="1"
+			                                                      Grid.Column="1"
+			                                                      SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding 
+                                                                  AreRowDetailsFrozen,
+                                                                  ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical},
+			                                                      Converter={x:Static DataGrid.RowDetailsScrollingConverter},
+			                                                      RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+			                                                      Visibility="{TemplateBinding DetailsVisibility}" />
+                                        <DataGridRowHeader Grid.RowSpan="2"
+			                                               SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"
+			                                               Visibility="{Binding HeadersVisibility,
+                                                           ConverterParameter={x:Static DataGridHeadersVisibility.Row},
+                                                           Converter={x:Static DataGrid.HeadersVisibilityConverter},
+                                                           RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                    </SelectiveScrollingGrid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border x:Name="border"
+			                            Background="Transparent"
+			                            BorderBrush="Crimson"
+			                            BorderThickness="0.5"
+			                            SnapsToDevicePixels="True">
+                                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Назва"
+                                Binding="{Binding Name}">
+                    <DataGridColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                            <Setter Property="SeparatorBrush" Value="DarkRed" />
+                            <Setter Property="FontWeight" Value="Black" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                        <Grid>
+                                            <Border x:Name="columnHeaderBorder"
+		                                            BorderThickness="1"
+		                                            Padding="3,0,3,0">
+                                                <Border.BorderBrush>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Offset="0" Color="#A5A5A5" />
+                                                        <GradientStop Offset="1" Color="#4B4B4B" />
+                                                    </LinearGradientBrush>
+                                                </Border.BorderBrush>
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Offset="0" Color="#DEB40A" />
+                                                        <GradientStop Offset="1" Color="#FF7F00" />
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+			                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+				                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </Border>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                            <Setter Property="TextBlock.HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Категорія"
+                                Binding="{Binding Category}">
+                    <DataGridColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                            <Setter Property="SeparatorBrush" Value="DarkRed" />
+                            <Setter Property="FontWeight" Value="Black" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                        <Grid>
+                                            <Border x:Name="columnHeaderBorder"
+		                                            BorderThickness="1"
+		                                            Padding="3,0,3,0">
+                                                <Border.BorderBrush>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Offset="0" Color="#A5A5A5" />
+                                                        <GradientStop Offset="1" Color="#4B4B4B" />
+                                                    </LinearGradientBrush>
+                                                </Border.BorderBrush>
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Offset="0" Color="#DEB40A" />
+                                                        <GradientStop Offset="1" Color="#FF7F00" />
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+			                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+				                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </Border>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+                            <Setter Property="TextBlock.HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="2*" Header="Інгредієнти"
+                                Binding="{Binding Ingredients}">
+                    <DataGridColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                            <Setter Property="SeparatorBrush" Value="DarkRed" />
+                            <Setter Property="FontWeight" Value="Black" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                        <Grid>
+                                            <Border x:Name="columnHeaderBorder"
+		                                            BorderThickness="1"
+		                                            Padding="3,0,3,0">
+                                                <Border.BorderBrush>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Offset="0" Color="#A5A5A5" />
+                                                        <GradientStop Offset="1" Color="#4B4B4B" />
+                                                    </LinearGradientBrush>
+                                                </Border.BorderBrush>
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Offset="0" Color="#DEB40A" />
+                                                        <GradientStop Offset="1" Color="#FF7F00" />
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+			                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+				                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </Border>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Width="3*" Header="Процес приготування"
+                                Binding="{Binding CookingString}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                            <Setter Property="SeparatorBrush" Value="DarkRed" />
+                            <Setter Property="FontWeight" Value="Black" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                        <Grid>
+                                            <Border x:Name="columnHeaderBorder"
+		                                            BorderThickness="1"
+		                                            Padding="3,0,3,0">
+                                                <Border.BorderBrush>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Offset="0" Color="#A5A5A5" />
+                                                        <GradientStop Offset="1" Color="#4B4B4B" />
+                                                    </LinearGradientBrush>
+                                                </Border.BorderBrush>
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                                        <GradientStop Offset="0" Color="#DEB40A" />
+                                                        <GradientStop Offset="1" Color="#FF7F00" />
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+			                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+				                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </Border>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridColumn.HeaderStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>
